@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import MovieSkeleton from "../../components/MovieSkeleton";
 import MovieCart from "../../components/MovieCart";
+import { validateImdbId } from "@/lib/validateImdbId";
 
 
 export default function Home() {
@@ -15,14 +16,12 @@ export default function Home() {
   const handleSubmit = async () => {
     setMovies(null);
 
-    const imdbRegex = /^tt\d{7,9}$/;
-
     if (!imdbId) {
       setError("Please enter an IMDb ID.");
       return;
     }
 
-    if (!imdbRegex.test(imdbId)) {
+    if (!validateImdbId(imdbId)) {
       setError("Invalid IMDb ID format. Example: tt0133093");
       return;
     }
